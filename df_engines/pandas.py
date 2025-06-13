@@ -36,3 +36,21 @@ class PandasDataframe(Dataframe):
         filtered = self.df[self.df['age'] < 18]
         result = filtered.groupby('major')['marks'].mean().reset_index()
         return result.sort_values(by='marks', ascending=False).head(top_n).to_dict(orient='records')
+    
+    def average_age_and_attendance_by_gender_year(self):
+        grouped = self.df.groupby(['gender', 'year']).agg(
+            avg_age=('age', 'mean'),
+            avg_attendance=('attendance_percentage', 'mean'),
+            student_count=('student_id', 'count')
+        ).reset_index()
+        return grouped.to_dict(orient='records')
+
+    def subject_performance_distribution_by_major(self):
+        grouped = self.df.groupby(['major', 'subject']).agg(
+            avg_marks=('marks', 'mean'),
+            min_marks=('marks', 'min'),
+            max_marks=('marks', 'max'),
+            student_count=('student_id', 'count')
+        ).reset_index()
+        return grouped.to_dict(orient='records')
+

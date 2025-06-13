@@ -39,3 +39,21 @@ class VaexDataframe(Dataframe):
         })
         sorted_df = df.sort('marks_mean', ascending=False)
         return sorted_df.head(top_n).to_items()
+    
+    def average_age_and_attendance_by_gender_year(self):
+        df = self.df.groupby(['gender', 'year'], agg={
+            'avg_age': vaex.agg.mean('age'),
+            'avg_attendance': vaex.agg.mean('attendance_percentage'),
+            'student_count': vaex.agg.count('student_id')
+        })
+        return df.to_items()
+
+    def subject_performance_distribution_by_major(self):
+        df = self.df.groupby(['major', 'subject'], agg={
+            'avg_marks': vaex.agg.mean('marks'),
+            'min_marks': vaex.agg.min('marks'),
+            'max_marks': vaex.agg.max('marks'),
+            'student_count': vaex.agg.count('student_id')
+        })
+        return df.to_items()
+
