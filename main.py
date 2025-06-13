@@ -38,6 +38,8 @@ class DataPipeline:
             self.df.avg_marks_and_attendance_by_major_year,
             self.df.passing_percentage_by_subject_year,
             self.df.top_majors_under_18_by_avg_marks,
+            self.df.average_age_and_attendance_by_gender_year,
+            self.df.subject_performance_distribution_by_major
         ]:
             dataset = each_func()
             print(type(dataset))
