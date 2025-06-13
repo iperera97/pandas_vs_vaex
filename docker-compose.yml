@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  pandas-service:
+    build: .
+    container_name: pandas_container
+    environment:
+      - DF_ENGINE=Pandas
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+    command: python main.py
+
+  vaex-service:
+    build: .
+    container_name: vaex_container
+    environment:
+      - DF_ENGINE=Vaex
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+    command: python main.py
