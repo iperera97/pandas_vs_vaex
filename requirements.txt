@@ -1,0 +1,4 @@
+Faker==35.2.2
+pandas==2.0.3
+vaex==4.17.0
+psutil==7.0.0
