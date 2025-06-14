@@ -11,11 +11,14 @@ class Dataframe:
     def create_data_files_per_year(self):
         raise NotImplementedError
     
-    def avg_marks_and_attendance_by_major_year(self):
+    def matrix_table_query(self):
         raise NotImplementedError
 
-    def passing_percentage_by_subject_year(self):
+    def filter_dataset_query(self):
         raise NotImplementedError
 
-    def top_majors_under_18_by_avg_marks(self, top_n=3):
+    def group_by_chart_query(self, top_n=3):
+        raise NotImplementedError
+    
+    def group_by_with_where_query(self, top_n=3):
         raise NotImplementedError

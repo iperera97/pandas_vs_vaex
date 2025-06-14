@@ -26,27 +26,37 @@ class DataPipeline:
     @profile_resources
     def read_rows(self):
         for row in self.df.iterate_records():
-            print(row)
+            ...
 
     @profile_resources
     def create_data_files_per_year(self):
         self.df.create_data_files_per_year()
 
     @profile_resources
-    def query(self):
-        for each_func in [
-            self.df.avg_marks_and_attendance_by_major_year,
-            self.df.passing_percentage_by_subject_year,
-            self.df.top_majors_under_18_by_avg_marks,
-            self.df.average_age_and_attendance_by_gender_year,
-            self.df.subject_performance_distribution_by_major
-        ]:
-            dataset = each_func()
-            print(type(dataset))
+    def matrix_table_query(self):
+        dataset = self.df.matrix_table_query()
+
+    @profile_resources
+    def filter_dataset_query(self):
+        dataset = self.df.filter_dataset_query()
+
+    @profile_resources
+    def group_by_chart_query(self):
+        dataset = self.df.group_by_chart_query()
+
+    @profile_resources
+    def group_by_with_where_query(self):
+        dataset = self.df.group_by_with_where_query()
 
 
 if __name__ == "__main__":
     pipeline = DataPipeline()
+
     pipeline.read_rows()
+
     pipeline.create_data_files_per_year()
-    pipeline.query()
+
+    pipeline.matrix_table_query()
+    pipeline.filter_dataset_query()
+    pipeline.group_by_chart_query()
+    pipeline.group_by_with_where_query()

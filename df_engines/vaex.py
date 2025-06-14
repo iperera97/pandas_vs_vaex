@@ -17,43 +17,31 @@ class VaexDataframe(Dataframe):
             group_df.export_parquet(filename, progress=True)
             print(f"Written: {filename}")
 
-    def avg_marks_and_attendance_by_major_year(self):
-        df = self.df.groupby(['major', 'year'], agg={
-            'marks_mean': vaex.agg.mean('marks'),
-            'attendance_mean': vaex.agg.mean('attendance_percentage')
+    def matrix_table_query(self):
+        df = self.df.groupby(['major', 'subject'], agg={
+            'count': vaex.agg.count('student_id')
+        })
+        return df.to_pandas_df().head(200).to_items()
+
+    def filter_dataset_query(self):
+        df = self.df[
+            (self.df.marks > 85) &
+            (self.df.attendance_percentage > 95) &
+            (self.df.age < 18)
+        ]
+        return df.head(100).to_items()
+
+    def group_by_chart_query(self):
+        df = self.df.groupby('subject', agg={
+            'avg_marks': vaex.agg.mean('marks')
         })
         return df.to_items()
 
-    def passing_percentage_by_subject_year(self):
-        passed_flag = self.df['passed'].str.lower() == 'yes'
-        df = self.df.groupby(['subject', 'year'], agg={
-            'passing_rate': vaex.agg.mean(passed_flag)
-        })
-        df['passing_percentage'] = df['passing_rate'] * 100
-        return df.drop('passing_rate').to_items()
-
-    def top_majors_under_18_by_avg_marks(self, top_n=3):
-        filtered = self.df[self.df['age'] < 18]
-        df = filtered.groupby('major', agg={
-            'marks_mean': vaex.agg.mean('marks')
-        })
-        sorted_df = df.sort('marks_mean', ascending=False)
-        return sorted_df.head(top_n).to_items()
-    
-    def average_age_and_attendance_by_gender_year(self):
-        df = self.df.groupby(['gender', 'year'], agg={
-            'avg_age': vaex.agg.mean('age'),
+    def group_by_with_where_query(self):
+        df_filtered = self.df[self.df.year.isin([2020, 2021, 2022])]
+        df = df_filtered.groupby('subject', agg={
+            'avg_marks': vaex.agg.mean('marks'),
             'avg_attendance': vaex.agg.mean('attendance_percentage'),
             'student_count': vaex.agg.count('student_id')
         })
         return df.to_items()
-
-    def subject_performance_distribution_by_major(self):
-        df = self.df.groupby(['major', 'subject'], agg={
-            'avg_marks': vaex.agg.mean('marks'),
-            'min_marks': vaex.agg.min('marks'),
-            'max_marks': vaex.agg.max('marks'),
-            'student_count': vaex.agg.count('student_id')
-        })
-        return df.to_items()
-

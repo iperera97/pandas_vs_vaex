@@ -9,10 +9,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '1.0'
-          memory: 1G
-    command: python main.py
-
+          cpus: '2.0'
+          memory: 2G
   vaex-service:
     build: .
     container_name: vaex_container
@@ -21,6 +19,4 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '1.0'
-          memory: 1G
-    command: python main.py
+          cpus: '2.0'
