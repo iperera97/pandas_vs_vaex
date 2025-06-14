@@ -31,7 +31,7 @@ class VaexDataframe(Dataframe):
         ]
         return df.head(100).to_items()
 
-    def group_by_chart_query(self):
+    def group_by_query(self):
         df = self.df.groupby('subject', agg={
             'avg_marks': vaex.agg.mean('marks')
         })

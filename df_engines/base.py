@@ -17,7 +17,7 @@ class Dataframe:
     def filter_dataset_query(self):
         raise NotImplementedError
 
-    def group_by_chart_query(self, top_n=3):
+    def group_by_query(self, top_n=3):
         raise NotImplementedError
     
     def group_by_with_where_query(self, top_n=3):

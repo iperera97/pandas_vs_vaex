@@ -30,7 +30,7 @@ class PandasDataframe(Dataframe):
         ]
         return df.head(100).to_dict(orient='records')
 
-    def group_by_chart_query(self):
+    def group_by_query(self):
         df = self.df.groupby('subject')['marks'].mean().reset_index()
         return df.rename(columns={'marks': 'avg_marks'}).to_dict(orient='records')
 

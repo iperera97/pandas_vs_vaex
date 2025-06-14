@@ -41,8 +41,8 @@ class DataPipeline:
         dataset = self.df.filter_dataset_query()
 
     @profile_resources
-    def group_by_chart_query(self):
-        dataset = self.df.group_by_chart_query()
+    def group_by_query(self):
+        dataset = self.df.group_by_query()
 
     @profile_resources
     def group_by_with_where_query(self):
